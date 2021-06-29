@@ -22,3 +22,14 @@ class Delivery(BaseModel):
     billing_date: str
     sd_document_currency: str
     billing_type: str
+
+class DeliveryItem(BaseModel):
+    delivery_document_number: str
+    item_number: str
+    product_number: str
+    delivery_uom: str
+    gross_weight: str
+    gross_weight_unit: str
+    created_by_user: str
+    created_date: str
+    alert: str
