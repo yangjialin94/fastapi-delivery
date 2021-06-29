@@ -1,4 +1,20 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, PositiveInt
+from typing import List
+
+class DeliveryItem(BaseModel):
+    delivery_document_number: PositiveInt
+    item_number: str
+    product_number: str
+    delivery_uom: str
+    gross_weight: float
+    gross_weight_unit: str
+    created_by_user: str
+    created_date: int
+    alert: str
+
+class DeliveryItemList(BaseModel):
+    delivery_items: List[DeliveryItem]
+    delivery_items_count: int
 
 class Delivery(BaseModel):
     created_by_user: str
@@ -22,14 +38,4 @@ class Delivery(BaseModel):
     billing_date: str
     sd_document_currency: str
     billing_type: str
-
-class DeliveryItem(BaseModel):
-    delivery_document_number: str
-    item_number: str
-    product_number: str
-    delivery_uom: str
-    gross_weight: str
-    gross_weight_unit: str
-    created_by_user: str
-    created_date: str
-    alert: str
+    item: List[DeliveryItem] = []

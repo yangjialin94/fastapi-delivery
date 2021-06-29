@@ -1,5 +1,4 @@
 from fastapi import APIRouter, status
-from typing import List
 from ..schemas import Delivery
 from ..repository import delivery
 

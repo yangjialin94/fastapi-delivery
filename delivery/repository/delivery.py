@@ -11,4 +11,6 @@ async def list_all():
                 expected_status=status.HTTP_200_OK,
             )
 	
-    return response
+    return response.json()
+
+# def parse_deliveries

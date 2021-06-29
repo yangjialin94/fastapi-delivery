@@ -15,6 +15,6 @@ async def async_request(method, url, params, expected_status):
             if response.status != expected_status:
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
-                    detail=f"Delivery not found"
+                    detail="Delivery not found"
                 )
             return await response.text()
