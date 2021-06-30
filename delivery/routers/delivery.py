@@ -3,7 +3,7 @@ from typing import List
 from ..schemas import Delivery, DeliveryList, DeliveryItem, DeliveryItemList
 from ..repository import delivery
 
-router = APIRouter(prefix="/delivery", tags=["Delivery"])
+router = APIRouter(prefix="/deliveries", tags=["Delivery"])
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=DeliveryList, name="Billing:List-Bills")
 async def list_deliveries():

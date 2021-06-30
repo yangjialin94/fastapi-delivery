@@ -50,8 +50,8 @@ def parse_delivery_item(data: dict):
     )
 
 def parse_sap_date(date: str):
-    regex = re.compile("/Date[(]([0-9]+)[)]/$")
-    match = regex.match(date.replace("\/", "/"))
+    regex = re.compile(r"/Date[(]([0-9]+)[)]/$")
+    match = regex.match(date)
 
     if match is None:
         raise Exception(f"Bad date (None): {date}")
