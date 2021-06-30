@@ -1,10 +1,8 @@
-from typing import ItemsView
 from fastapi import status
+from .parse import parse_deliveries, parse_delivery, parse_delivery_items, parse_delivery_item
 from ..sap import async_request
-from ..schemas import Delivery, DeliveryList, DeliveryItem
-from .common import parse_delivery_item
 
-async def list_all():
+async def list_deliveries():
     response = await async_request(
                 method="GET",
                 url="deliveries",
@@ -16,33 +14,91 @@ async def list_all():
 	
     return parse_deliveries(response)
 
-def parse_deliveries(data: dict):
-    deliveries = list(map(parse_delivery, data["d"]["results"]))
-    return DeliveryList(deliveries=deliveries, deliveries_count=len(deliveries))
+async def get_delivery(bill_doc_num):
+    response = await async_request(
+                method="GET",
+                url=f"deliveries('{bill_doc_num}')",
+                params={
+                    "$expand": "item",
+                },
+                expected_status=status.HTTP_200_OK,
+            )
+	
+    return parse_delivery(response)
 
-def parse_delivery(data: dict):
-    items = {} if data["item"] is None else data["item"]
-    return Delivery(
-        created_by_user = "",
-        delivery_document_number = "",
-        estimated_delivery_date = "",
-        shipping_point = "",
-        sales_organization = "",
-        delivery_type = "",
-        goods_issue_date = "",
-        loading_date = "",
-        delivery_date = "",
-        picking_date = "",
-        sd_document_category = "",
-        shipping_conditions = "",
-        customer_number = "",
-        sold_to_number = "",
-        net_weight = "",
-        weight_unit = "",
-        transportation_group = "",
-        proposed_billing_type = "",
-        billing_date = "",
-        sd_document_currency = "",
-        billing_type = "",
-        items = [parse_delivery_item(i) for i in items.get("result", [])]
-    )
+async def list_delivery_items(bill_doc_num):
+    # response = await async_request(
+    #             method="GET",
+    #             url=f"deliveries('{bill_doc_num}')/item",
+    #             params={},
+    #             expected_status=status.HTTP_200_OK,
+    #         )
+    
+    # return parse_delivery_items(response)
+
+    response = {
+        "d": {
+            "results": [
+                {
+                    "__metadata": {
+                        "id": "http://100.114.10.77:8000/sap/opu/odata/sap/ZNUVE_SRV/delivery_items(delivery_document_number='80000000',item_number='000010')",
+                        "uri": "http://100.114.10.77:8000/sap/opu/odata/sap/ZNUVE_SRV/delivery_items(delivery_document_number='80000000',item_number='000010')",
+                        "type": "ZNUVE_SRV.delivery_item"
+                    },
+                    "delivery_document_number": "80000000",
+                    "item_number": "000010",
+                    "product_number": "2",
+                    "delivery_uom": "EA",
+                    "gross_weight": "1.000",
+                    "gross_weight_unit": "KG",
+                    "created_by_user": "NLARA",
+                    "created_date": "/Date(1612504799000)/",
+                    "alert": ""
+                },
+                {
+                    "__metadata": {
+                        "id": "http://100.114.10.77:8000/sap/opu/odata/sap/ZNUVE_SRV/delivery_items(delivery_document_number='80000002',item_number='000010')",
+                        "uri": "http://100.114.10.77:8000/sap/opu/odata/sap/ZNUVE_SRV/delivery_items(delivery_document_number='80000002',item_number='000010')",
+                        "type": "ZNUVE_SRV.delivery_item"
+                    },
+                    "delivery_document_number": "80000002",
+                    "item_number": "000010",
+                    "product_number": "2",
+                    "delivery_uom": "EA",
+                    "gross_weight": "15.000",
+                    "gross_weight_unit": "KG",
+                    "created_by_user": "NLARA",
+                    "created_date": "/Date(1612504799000)/",
+                    "alert": ""
+                },
+                {
+                    "__metadata": {
+                        "id": "http://100.114.10.77:8000/sap/opu/odata/sap/ZNUVE_SRV/delivery_items(delivery_document_number='80000003',item_number='000010')",
+                        "uri": "http://100.114.10.77:8000/sap/opu/odata/sap/ZNUVE_SRV/delivery_items(delivery_document_number='80000003',item_number='000010')",
+                        "type": "ZNUVE_SRV.delivery_item"
+                    },
+                    "delivery_document_number": "80000003",
+                    "item_number": "000010",
+                    "product_number": "2",
+                    "delivery_uom": "EA",
+                    "gross_weight": "9.000",
+                    "gross_weight_unit": "KG",
+                    "created_by_user": "NLARA",
+                    "created_date": "/Date(1612504799000)/",
+                    "alert": ""
+                }
+            ]
+        }
+    }
+	
+    return parse_delivery_items(response)
+
+async def get_delivery_item(bill_doc_num, item_num):
+    response = await async_request(
+                method="GET",
+                url=f"deliveries(xxx='{bill_doc_num}', xxx='{item_num}')",
+                params={},
+                expected_status=status.HTTP_200_OK,
+            )
+	
+    return parse_delivery_item(response)
