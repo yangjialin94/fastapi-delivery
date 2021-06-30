@@ -1,7 +1,7 @@
 from fastapi import status
 from ..sap import async_request
 from ..schemas import DeliveryItem, DeliveryItemList
-from .utils import parse_sap_date
+from .common import parse_delivery_item
 
 async def list_all():
     # response = await async_request(
@@ -11,7 +11,7 @@ async def list_all():
     #             expected_status=status.HTTP_200_OK,
     #         )
     
-    # return parse_delivery_items(response.json())
+    # return parse_delivery_items(response)
 
     response = {
         "d": {
@@ -73,16 +73,3 @@ async def list_all():
 def parse_delivery_items(data: dict):
     delivery_items = list(map(parse_delivery_item, data["d"]["results"]))
     return DeliveryItemList(delivery_items=delivery_items, delivery_items_count=len(delivery_items))
-
-def parse_delivery_item(data: dict):
-    return DeliveryItem(
-        delivery_document_number=int(data["delivery_document_number"]),
-        item_number=data["item_number"],
-        product_number=data["product_number"],
-        delivery_uom=data["delivery_uom"],
-        gross_weight=float(data["gross_weight"]),
-        gross_weight_unit=data["gross_weight_unit"],
-        created_by_user=data["created_by_user"],
-        created_date=parse_sap_date(data["created_date"]),
-        alert=data["alert"]
-    )
