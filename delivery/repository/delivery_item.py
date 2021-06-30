@@ -1,10 +1,18 @@
-import re
-
 from fastapi import status
 from ..sap import async_request
 from ..schemas import DeliveryItem, DeliveryItemList
+from .utils import parse_sap_date
 
 async def list_all():
+    # response = await async_request(
+    #             method="GET",
+    #             url="delivery_items",
+    #             params={},
+    #             expected_status=status.HTTP_200_OK,
+    #         )
+    
+    # return parse_delivery_items(response.json())
+
     response = {
         "d": {
             "results": [
@@ -63,8 +71,7 @@ async def list_all():
     return parse_delivery_items(response)
 
 def parse_delivery_items(data: dict):
-    data = data["d"]["results"]
-    delivery_items = list(map(parse_delivery_item, data))
+    delivery_items = list(map(parse_delivery_item, data["d"]["results"]))
     return DeliveryItemList(delivery_items=delivery_items, delivery_items_count=len(delivery_items))
 
 def parse_delivery_item(data: dict):
@@ -79,15 +86,3 @@ def parse_delivery_item(data: dict):
         created_date=parse_sap_date(data["created_date"]),
         alert=data["alert"]
     )
-
-def parse_sap_date(date: str):
-    regex = re.compile('/Date[(]([0-9]+)[)]/$')
-    match = regex.match(date)
-
-    if match is None:
-        raise Exception('Bad date: "%s"' %(date))
-    try:
-        date = int(match.groups()[0])
-    except TypeError:
-        raise Exception('Bade date: "%s"' %(date))
-    return date

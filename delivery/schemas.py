@@ -38,4 +38,8 @@ class Delivery(BaseModel):
     billing_date: str
     sd_document_currency: str
     billing_type: str
-    item: List[DeliveryItem] = []
+    items: List[DeliveryItem] = []
+
+class DeliveryList(BaseModel):
+    deliveries: List[Delivery]
+    deliveries_count: int
