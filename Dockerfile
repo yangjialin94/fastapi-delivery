@@ -8,11 +8,9 @@ RUN mkdir /fastapi_delivery
 WORKDIR /fastapi_delivery
 
 # Install dependencies
-# RUN pip install --upgrade pip
-RUN pip install pipenv
-RUN pipenv shell
+RUN pip install --upgrade pip
 COPY requirements.txt .
-RUN pipenv install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy project
 COPY . .
