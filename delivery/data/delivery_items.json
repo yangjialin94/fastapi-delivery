@@ -1,0 +1,38 @@
+{
+    "d": {
+        "results": [
+            {
+                "__metadata": {
+                    "id": "http://txcerp.10xcoding.com:8000/sap/opu/odata/SAP/ZNUVE_SRV/delivery_items(delivery_document_number='80000000',item_number='000010')",
+                    "uri": "http://txcerp.10xcoding.com:8000/sap/opu/odata/SAP/ZNUVE_SRV/delivery_items(delivery_document_number='80000000',item_number='000010')",
+                    "type": "ZNUVE_SRV.delivery_item"
+                },
+                "delivery_document_number": "80000000",
+                "item_number": "000010",
+                "product_number": "2",
+                "delivery_uom": "EA",
+                "gross_weight": "1.000",
+                "gross_weight_unit": "KG",
+                "created_by_user": "NLARA",
+                "created_date": "\/Date(1612504799000)\/",
+                "alert": ""
+            },
+            {
+                "__metadata": {
+                    "id": "http://txcerp.10xcoding.com:8000/sap/opu/odata/SAP/ZNUVE_SRV/delivery_items(delivery_document_number='80000004',item_number='000010')",
+                    "uri": "http://txcerp.10xcoding.com:8000/sap/opu/odata/SAP/ZNUVE_SRV/delivery_items(delivery_document_number='80000004',item_number='000010')",
+                    "type": "ZNUVE_SRV.delivery_item"
+                },
+                "delivery_document_number": "80000000",
+                "item_number": "000020",
+                "product_number": "18",
+                "delivery_uom": "KG",
+                "gross_weight": "176.000",
+                "gross_weight_unit": "KG",
+                "created_by_user": "NLARA",
+                "created_date": "\/Date(1625115599000)\/",
+                "alert": ""
+            }
+        ]
+    }
+}

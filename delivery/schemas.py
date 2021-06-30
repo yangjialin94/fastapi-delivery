@@ -23,8 +23,8 @@ class Delivery(BaseModel):
     shipping_point: str
     sales_organization: str
     delivery_type: str
-    goods_issue_date: str
-    loading_date: str
+    goods_issue_date: Optional[int]
+    loading_date: Optional[int]
     delivery_date: Optional[int]
     picking_date: Optional[int]
     sd_document_category: str
