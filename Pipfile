@@ -10,6 +10,7 @@ pytest = "*"
 aiohttp = "*"
 cchardet = "*"
 aiodns = "*"
+requests = "*"
 
 [dev-packages]
 

@@ -3,7 +3,9 @@ from fastapi import status
 from .parse import parse_deliveries, parse_delivery, parse_delivery_items, parse_delivery_item
 from ..sap import async_request
 
-async def list_deliveries():
+async def list_deliveries(deliveries_filters):
+    # limit = deliveries_filters.limit
+    # offset = deliveries_filters.offset  
     # response = await async_request(
     #             method="GET",
     #             url="deliveries",

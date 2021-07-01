@@ -1,5 +1,8 @@
-from pydantic import BaseModel, PositiveInt
+from pydantic import BaseModel, Field, PositiveInt
 from typing import List, Optional
+
+DEFAULT_SALES_LIMIT = 20
+DEFAULT_SALES_OFFSET = 0
 
 class DeliveryItem(BaseModel):
     delivery_document_number: PositiveInt
@@ -43,3 +46,7 @@ class Delivery(BaseModel):
 class DeliveryList(BaseModel):
     deliveries: List[Delivery]
     deliveries_count: int
+
+class DeliveriesFilters(BaseModel):
+    limit: int = Field(DEFAULT_SALES_LIMIT, ge=1)
+    offset: int = Field(DEFAULT_SALES_OFFSET, ge=0)

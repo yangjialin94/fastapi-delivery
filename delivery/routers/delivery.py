@@ -1,13 +1,14 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, Depends, status
 from typing import List
-from ..schemas import Delivery, DeliveryList, DeliveryItem, DeliveryItemList
+from ..schemas import Delivery, DeliveryList, DeliveryItem, DeliveryItemList, DeliveriesFilters
 from ..repository import delivery
+from ..dependencies import get_deliveries_filters
 
 router = APIRouter(prefix="/deliveries", tags=["Delivery"])
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=DeliveryList, name="Billing:List-Bills")
-async def list_deliveries():
-    return await delivery.list_deliveries()
+async def list_deliveries(deliveries_filters: DeliveriesFilters = Depends(get_deliveries_filters)):
+    return await delivery.list_deliveries(deliveries_filters)
 
 @router.get("/{bill_doc_num}", status_code=status.HTTP_200_OK, response_model=Delivery, name="Billing:Read-Bill")
 async def get_delivery(bill_doc_num):
