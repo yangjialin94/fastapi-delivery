@@ -1,9 +1,9 @@
 import aiohttp
 from fastapi import Depends, status, HTTPException
 
-JY_IP = "100.114.10.77"
+JY_IP = "100.112.187.11"
 NL_IP = "100.93.197.117"
-BASE_URL = f"http://{NL_IP}:8000/sap/opu/odata/sap/ZNUVE_SRV"
+BASE_URL = f"http://{JY_IP}:8000/sap/opu/odata/sap/ZNUVE_SRV"
 AUTH = aiohttp.BasicAuth("nlara", "10xCoding!")
 
 async def async_request(method, url, params, expected_status):
