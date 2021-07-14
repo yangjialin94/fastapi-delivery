@@ -5,3 +5,4 @@ cchardet
 aiodns
 pytest
 requests
+aiofiles

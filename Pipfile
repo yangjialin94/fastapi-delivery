@@ -11,6 +11,7 @@ aiohttp = "*"
 cchardet = "*"
 aiodns = "*"
 requests = "*"
+aiofiles = "*"
 
 [dev-packages]
 
