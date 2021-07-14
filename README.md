@@ -9,7 +9,7 @@ Delivery API implemented with FastAPI.
 Run these commands in this directory
 
 ```
-$ docker-compose -f docker-compose.sap_dev.yml up --build --force-recreate --remove-orphans
+$ docker-compose -f docker-compose.dev.yml up --build --force-recreate --remove-orphans
 $ docker-compose -f docker-compose.dev.yml down -v
 ```
 
